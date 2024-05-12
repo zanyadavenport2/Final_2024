@@ -1,5 +1,5 @@
 ---
-title: "Covid91 vaccine study Final2023"
+title: "Covid91 vaccine study Final2024"
 author: "Put your name here!"
 output: 
   html_document:
@@ -13,7 +13,7 @@ date: "`r Sys.Date()`"
 require(tidyverse)
 require(tigerstats)
 require(forcats)
-FinalDat <-read.csv(file="final.csv",header=TRUE)
+FinalDat <-read.csv(file="finalSumr2024.csv",header=TRUE)
 #recode to remove the annoying "X" from the dataframe
 FinalData <- FinalDat  %>% select(-one_of("X"))
 FinalData <- FinalData %>%
