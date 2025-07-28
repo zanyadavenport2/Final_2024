@@ -18,6 +18,10 @@ FinalDat <-read.csv(file="finalSumr2024.csv",header=TRUE)
 FinalData <- FinalDat  %>% select(-one_of("X"))
 FinalData <- FinalData %>%
 mutate(across(where(is.character), as.factor))
+Males = filter(FinalData, sex =="M")
+Female = filter(FinalData, sex =="F")
+gay = filter(FinalData, LGBTQ =="gay")
+Druguser = filter(FinalData, DrugUser =="yes")
 ```
 
 # Introduction
@@ -26,6 +30,30 @@ A new  preventative vaccine (covid921) is under test in clinical trials. Given t
 
 ## Males
 
+## Barplot  
+
+```{r}
+dd2 <- Males %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd2,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd2,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+This plot represents the population of Males and their relationship to the contraction of covid-19 by either taking the vaccine or the placebo.
+The plot above shows that roughly 25% of the people that took the vaccine did in fact get covid-19, while approximately 75% of the people taking the placebo contracted covid-19.  A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.
+
+## Numerical Results 
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Males)
+rowPerc(table1)
+colPerc(table1)
+```
 
 ## Females
 
