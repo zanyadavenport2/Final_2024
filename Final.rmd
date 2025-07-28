@@ -1,6 +1,6 @@
 ---
 title: "Covid91 vaccine study Final2024"
-author: "Put your name here!"
+author: "Zanya Davenport"
 output: 
   html_document:
     number_sections: true
