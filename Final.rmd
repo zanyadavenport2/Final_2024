@@ -45,7 +45,7 @@ basicCC <- ggplot(dd2,aes(x=infected,y=prcnt*100,fill=treatment))
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 This plot represents the population of Males and their relationship to the contraction of covid-19 by either taking the vaccine or the placebo.
-The plot above shows that roughly 25% of the people that took the vaccine did in fact get covid-19, while approximately 75% of the people taking the placebo contracted covid-19.  A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.
+The plot above shows that roughly 25% of the people that took the vaccine did in fact get covid-19, while approximately 65% of the people taking the placebo contracted covid-19.  A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.
 
 ## Numerical Results 
 
@@ -56,7 +56,7 @@ colPerc(table1)
 ```
 
 These numerical results show specific percentages of Males that got covid-19 after taking the placebo and taking the vaccine. 
-Among the Males, 75% got covid-19 after taking the placebo, while the approximately 25% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+Among the Males, 65% got covid-19 after taking the placebo, while the approximately 25% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
 
 
 ### Inferential 
@@ -96,6 +96,45 @@ The odds ratio is approximately how effective the vaccine is. The odds ratio for
 
 ## Females
 
+### Barplot
+
+```{r}
+dd3 <- Female %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd3,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd3,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+This plot represents the population of females and their relationship to the contraction of covid-19 by either taking the vaccine or the placebo.
+The plot above shows that roughly 25% of the people that took the vaccine did in fact get covid-19, while approximately 55% of the people taking the placebo contracted covid-19. A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.  
+
+#### Numerical Results 
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Males)
+rowPerc(table1)
+colPerc(table1)
+```
+
+These numerical results show specific percentages of females that got covid-19 after taking the placebo and taking the vaccine. 
+Among the females, 65% got covid-19 after taking the placebo, while the approximately 25% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+
+##### Infrential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+Femalefish <- fisher.test(table1)
+Femalefish
+```
+
+The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance.
 
 ## LGBTQ
 
