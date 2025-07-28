@@ -1,5 +1,5 @@
 ---
-title: "Covid91 vaccine study Final2024"
+title: "Covid91 vaccine study Final2025"
 author: "Zanya Davenport"
 output: 
   html_document:
@@ -54,6 +54,45 @@ table1 <- xtabs(~infected + treatment, data=Males)
 rowPerc(table1)
 colPerc(table1)
 ```
+
+These numerical results show specific percentages of Males that got covid-19 after taking the placebo and taking the vaccine. 
+Among the Males, 75% got covid-19 after taking the placebo, while the approximately 25% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+
+
+### Inferential 
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+Malesfish <- fisher.test(table1)
+Malesfish
+```
+
+ The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance.
+
+
+
+
+```{r}
+effect <- Malesfish$p.value/(Malesfish$p.value +1)
+effectivenessMales = Malesfish$estimate/(Malesfish$estimate +1)*100
+print(effectivenessMales)
+```
+
+```{r}
+low=(Malesfish$conf.int[1]/(Malesfish$conf.int[1] +1))*100
+hi=(Malesfish$conf.int[2]/(Malesfish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+## Effectiveness Confidence Interval `r low`  to `r hi`
+
+
+
+Above is the effectiveness for the covid-19 vaccine for males. If the effectiveness is above 50% that means that the vaccine is effective. Based on the interval seen above, we can conclude that the vaccine is effective in protecting males from getting covid-19. 
+
+The odds ratio is approximately how effective the vaccine is. The odds ratio for the guys can be seen above as 70. The effectiveness confidence interval for the guys is 68.85 to 78.32.
+
 
 ## Females
 
