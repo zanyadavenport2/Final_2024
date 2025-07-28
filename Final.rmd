@@ -112,18 +112,18 @@ basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 
 This plot represents the population of females and their relationship to the contraction of covid-19 by either taking the vaccine or the placebo.
-The plot above shows that roughly 25% of the people that took the vaccine did in fact get covid-19, while approximately 55% of the people taking the placebo contracted covid-19. A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.  
+The plot above shows that roughly 35% of the people that took the vaccine did in fact get covid-19, while approximately 65% of the people taking the placebo contracted covid-19. A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.  
 
 #### Numerical Results 
 
 ```{r}
-table1 <- xtabs(~infected + treatment, data=Males)
-rowPerc(table1)
-colPerc(table1)
+table2<- xtabs(~infected + treatment, data=Males)
+rowPerc(table2)
+colPerc(table2)
 ```
 
 These numerical results show specific percentages of females that got covid-19 after taking the placebo and taking the vaccine. 
-Among the females, 65% got covid-19 after taking the placebo, while the approximately 25% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+Among the females, 65% got covid-19 after taking the placebo, while the approximately 35% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
 
 ##### Infrential Results
 
@@ -135,6 +135,26 @@ Femalefish
 ```
 
 The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance.
+
+```{r}
+effect <- Femalefish$p.value/(Femalefish$p.value +1)
+effectivenessFemales = Femalefish$estimate/(Femalefish$estimate +1)*100
+print(effectivenessFemales)
+```
+
+```{r}
+low=(Femalefish$conf.int[1]/(Femalefish$conf.int[1] +1))*100
+hi=(Femalefish$conf.int[2]/(Femalefish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+###### Effectiveness Confidence Interval `r low`  to `r hi`
+
+
+
+Above is the effectiveness for the covid-19 vaccine for females. If the effectiveness is above 50% that means that the vaccine is effective. Based on the interval seen above, we can conclude that the vaccine is effective in protecting females from getting covid-19. 
+
+The odds ratio is approximately how effective the vaccine is. The odds ratio for the females can be seen above as 74. The effectiveness confidence interval for the females is 68.85 to 78.32.
 
 ## LGBTQ
 
