@@ -268,7 +268,7 @@ hi=(Druguserfish$conf.int[2]/(Druguserfish$conf.int[2] +1))*100
 options(digits=2)
 ```
 
-###### Effectiveness Confidence Interval `r low`  to `r hi`
+## Effectiveness Confidence Interval `r low`  to `r hi`
 
 
 
@@ -277,3 +277,11 @@ Above is the effectiveness for the covid-19 vaccine for drugusers. If the effect
 The odds ratio is approximately how effective the vaccine is. The odds ratio for the drugusers can be seen above as 7. The effectiveness confidence interval for the drugusers is 2.65 to 17.86 .
 
 # Overall Results and Conclusions
+
+The covid-19 vaccine was effective in protecting men against the contraction of the disease. The covid-19 effectiveness was `r effectivenessMales`
+for men. The covid-19 vaccine was successful in protecting women against covid-19.The covid-19 effectiveness was `r effectivenessFemales`.The covid-19 vaccine was most effective in treating people who identified as gay. The covid-19 effectiveness was `r effectivenessgay` for gay individuals.
+The individuals that were drugusers were ineffectively protected by the vaccine. 
+The drugusers that took the vaccine were more likely to get covid-19 than those taking the placebo.The covid-19 effectiveness was `r effectivenessDruguser` for drugusers.
+
+If you are druguser it is not recommended to receive the vaccine. However, if you are gay, female or male (non-druguser) , the vaccine was reported to have been effective.
+The null that there is no difference in taking the vaccine can not be accepted to the categories including drugusers. The alternative, that the vaccine works and is effective, can be accepted for the women, men,and the people who are gay.
