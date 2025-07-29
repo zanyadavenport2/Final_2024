@@ -55,8 +55,7 @@ rowPerc(table1)
 colPerc(table1)
 ```
 
-These numerical results show specific percentages of Males that got covid-19 after taking the placebo and taking the vaccine. 
-Among the Males, 73.8% got covid-19 after taking the placebo, while the approximately 26.2% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+These numerical results show specific percentages of Males that got covid-19 after taking the placebo and taking the vaccine. Among the Males, 73.8% got covid-19 after taking the placebo, while the approximately 26.2% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
 
 
 ### Inferential 
@@ -133,7 +132,7 @@ Femalefish <- fisher.test(table1)
 Femalefish
 ```
 
-The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance. The odd ratio is 2.8 so for every 2 people with covid on the vaccine there is 8 people on the placebo with covid.
+The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance. 
 
 ```{r}
 effect <- Femalefish$p.value/(Femalefish$p.value +1)
@@ -147,7 +146,7 @@ hi=(Femalefish$conf.int[2]/(Femalefish$conf.int[2] +1))*100
 options(digits=2)
 ```
 
-###### Effectiveness Confidence Interval `r low`  to `r hi`
+## Effectiveness Confidence Interval `r low`  to `r hi`
 
 
 
@@ -213,7 +212,7 @@ options(digits=2)
 
 Above is the effectiveness for the covid-19 vaccine for gays. If the effectiveness is above 50% that means that the vaccine is effective. Based on the interval seen above, we can conclude that the vaccine is effective in protecting gays from getting covid-19. 
 
-The odds ratio is approximately how effective the vaccine is. The odds ratio for the gays can be seen above as 80. The effectiveness confidence interval for the guys is 89.88 to 68.99.
+The odds ratio is approximately how effective the vaccine is. The odds ratio for the gays can be seen above as 80. The effectiveness confidence interval for the guys is  68.99 to 89.88.
 
 
 ## Druggies  
@@ -246,5 +245,35 @@ colPerc(table4)
 ```
 These numerical results show specific percentages of Druguser that got covid-19 after taking the placebo and taking the vaccine. Among the drugusers, 8.3% got covid-19 after taking the placebo, while the approximately 91.7% of drugusers that were given the vaccine contracted covid-19. The vaccine is clearly ineffective in preventing covid-19 in drugusers and is not recommended. Those who took the vaccine were more likely to contract covid-19.
 
+##### Infrential Results 
+
+```{r}
+chisq.test(table4)
+chisqtestGC(table4)
+Druguserfish <- fisher.test(table4)
+Druguserfish
+```
+
+The p-value displayed above is at 3e-12. This is a small number.Seeing this number means that these results are not likely to occur by chance.
+
+```{r}
+effect <- Druguserfish$p.value/(Druguserfish$p.value +1)
+effectivenessDruguser = Druguserfish$estimate/(Druguserfish$estimate +1)*100
+print(effectivenessDruguser)
+```
+
+```{r}
+low=(Druguserfish$conf.int[1]/(Druguserfish$conf.int[1] +1))*100
+hi=(Druguserfish$conf.int[2]/(Druguserfish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+###### Effectiveness Confidence Interval `r low`  to `r hi`
+
+
+
+Above is the effectiveness for the covid-19 vaccine for drugusers. If the effectiveness is above 50% that means that the vaccine is effective. Based on the interval seen above, we can conclude that the vaccine is ineffective in protecting drugusers from getting covid-19. 
+
+The odds ratio is approximately how effective the vaccine is. The odds ratio for the drugusers can be seen above as 7. The effectiveness confidence interval for the drugusers is 2.65 to 17.86 .
 
 # Overall Results and Conclusions
