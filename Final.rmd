@@ -56,7 +56,7 @@ colPerc(table1)
 ```
 
 These numerical results show specific percentages of Males that got covid-19 after taking the placebo and taking the vaccine. 
-Among the Males, 65% got covid-19 after taking the placebo, while the approximately 25% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+Among the Males, 73.8% got covid-19 after taking the placebo, while the approximately 26.2% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
 
 
 ### Inferential 
@@ -122,8 +122,7 @@ rowPerc(table2)
 colPerc(table2)
 ```
 
-These numerical results show specific percentages of females that got covid-19 after taking the placebo and taking the vaccine. 
-Among the females, 65% got covid-19 after taking the placebo, while the approximately 35% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
+These numerical results show specific percentages of females that got covid-19 after taking the placebo and taking the vaccine. Among the females, 74% got covid-19 after taking the placebo, while the approximately 26% of guys that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in males and is  recommended. Those who took the placebo were more likely to contract covid-19.
 
 ##### Infrential Results
 
@@ -134,7 +133,7 @@ Femalefish <- fisher.test(table1)
 Femalefish
 ```
 
-The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance.
+The p-value displayed above is at 2.2e-16. This is an ok number.Seeing this number means that these results are likely to occur by chance. The odd ratio is 2.8 so for every 2 people with covid on the vaccine there is 8 people on the placebo with covid.
 
 ```{r}
 effect <- Femalefish$p.value/(Femalefish$p.value +1)
@@ -157,10 +156,95 @@ Above is the effectiveness for the covid-19 vaccine for females. If the effectiv
 The odds ratio is approximately how effective the vaccine is. The odds ratio for the females can be seen above as 74. The effectiveness confidence interval for the females is 68.85 to 78.32.
 
 ## LGBTQ
+### Barplot
+
+```{r}
+dd4 <- gay %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd4,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd4,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+This plot represents the population of gays and their relationship to the contraction of covid-19 by either taking the vaccine or the placebo.
+The plot above shows that roughly 20% of the people that took the vaccine did in fact get covid-19, while approximately 80% of the people taking the placebo contracted covid-19.  A substantially higher percentage of people who took that placebo contracted covid-19 versus those who were only given the vaccine. The vaccine appears to be effective in the protection against covid-19.
+
+#### Numerical Results
+
+```{r}
+table3 <- xtabs(~infected + treatment, data=gay)
+rowPerc(table3)
+colPerc(table3)
+```
+
+These numerical results show specific percentages of gays that got covid-19 after taking the placebo and taking the vaccine. Among the gays, 80% got covid-19 after taking the placebo, while the approximately 20% of gays that were given the vaccine contracted covid-19. The vaccine is clearly effective in preventing covid-19 in gays and is  recommended. Those who took the placebo were more likely to contract covid-19.
+
+##### Infrential Results
+
+```{r}
+chisq.test(table3)
+chisqtestGC(table3)
+gayfish <- fisher.test(table3)
+gayfish
+```
+
+ The p-value displayed above is at 7e-07. This is a large number.Seeing this number means that these results are likely to occur by chance. 
+ 
+```{r}
+effect <- gayfish$p.value/(gayfish$p.value +1)
+effectivenessgay = gayfish$estimate/(gayfish$estimate +1)*100
+print(effectivenessgay)
+```
+ 
+```{r}
+low=(gayfish$conf.int[1]/(gayfish$conf.int[1] +1))*100
+hi=(gayfish$conf.int[2]/(gayfish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+## Effectiveness Confidence Interval `r low`  to `r hi`
 
 
 
-## Druggies
+Above is the effectiveness for the covid-19 vaccine for gays. If the effectiveness is above 50% that means that the vaccine is effective. Based on the interval seen above, we can conclude that the vaccine is effective in protecting gays from getting covid-19. 
+
+The odds ratio is approximately how effective the vaccine is. The odds ratio for the gays can be seen above as 80. The effectiveness confidence interval for the guys is 89.88 to 68.99.
+
+
+## Druggies  
+
+### Barplot
+
+```{r}
+dd5 <- Druguser %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd5,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd5,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+This plot represents the population of drugusers and their relationship to the contraction of covid-19 by either taking the vaccine or the placebo.
+The plot above shows that roughly 95% of the people that took the vaccine did in fact get covid-19, while approximately 8% of the people taking the placebo contracted covid-19. A substantially higher percentage of people who took vaccine contracted covid-19 versus those who were only given the placebo. The vaccine appears to be ineffective in the protection against covid-19.  
+
+#### Numerical Results 
+
+
+```{r}
+table4<- xtabs(~infected + treatment, data=Druguser)
+rowPerc(table4)
+colPerc(table4)
+```
+These numerical results show specific percentages of Druguser that got covid-19 after taking the placebo and taking the vaccine. Among the drugusers, 8.3% got covid-19 after taking the placebo, while the approximately 91.7% of drugusers that were given the vaccine contracted covid-19. The vaccine is clearly ineffective in preventing covid-19 in drugusers and is not recommended. Those who took the vaccine were more likely to contract covid-19.
 
 
 # Overall Results and Conclusions
